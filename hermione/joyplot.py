@@ -40,3 +40,5 @@ def joyplot(data, x, row, row_order=None, palette=None,
     g.set_titles("")
     g.set(yticks=[])
     g.despine(bottom=True, left=True)
+    
+    return g
