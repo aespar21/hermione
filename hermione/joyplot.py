@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+sns.set(style="white", rc={"axes.facecolor": (0, 0, 0, 0)})
+
 
 def joyplot(data, x, row, row_order=None, palette=None,
             xlabel_suffix='log2(UMI + 1)', **kwargs):
