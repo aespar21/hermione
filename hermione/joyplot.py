@@ -9,7 +9,8 @@ def joyplot(data, x, row, row_order=None, palette=None,
                           aspect=8, size=0.5, palette=palette,
                           row_order=row_order, **kwargs)
         # Draw the densities in a few steps
-        g.map(sns.kdeplot, x, clip_on=False, shade=True, alpha=1, lw=1.5, bw=.2)
+        g.map(sns.kdeplot, x, clip_on=False, shade=True, alpha=1, lw=1.5,
+              bw=.2)
         g.map(sns.kdeplot, x, clip_on=False, color="w", lw=2, bw=.2)
         g.map(plt.axhline, y=0, lw=2, clip_on=False)
 
@@ -22,7 +23,8 @@ def joyplot(data, x, row, row_order=None, palette=None,
 
         g.map(show_size, x)
 
-        # Define and use a simple function to label the plot in axes coordinates
+        # Define and use a simple function to label the plot in axes
+        # coordinates
         def label(x, color, label=None):
             if label is None:
                 return
