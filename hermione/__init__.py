@@ -1,6 +1,6 @@
 __version__ = '0.1.0'
 
-from .joyplot import joyplot
+from .horizonplot import horizonplot
 
 
-__all__ = ['joyplot']
+__all__ = ['horizonplot']
