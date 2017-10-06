@@ -1,6 +1,6 @@
 # hermione
 
-Joyplots and more for single cells
+Horizon plots and more for single cells
 
 ## Examples
 
@@ -20,19 +20,19 @@ m = df.g.map(ord)
 df["x"] += m
 
 
-hm.joyplot(data=df, x='x', row='g', xlabel_suffix='log2(UMI + 1)')
+hm.horizonplot(data=df, x='x', row='g', xlabel_suffix='log2(UMI + 1)')
 ```
 
-![](figures/joyplot_default.png)
+![](figures/horizonplot_default.png)
 
 ### Change the colors
 
 Change the color palette with the `palette` keyword as with `seaborn.FacetGrid`:
 
 ```python
-hm.joyplot(data=df, x='x', row='g', xlabel_suffix='log2(UMI + 1)', palette='Paired')
+hm.horizonplot(data=df, x='x', row='g', xlabel_suffix='log2(UMI + 1)', palette='Paired')
 ```
-![](figures/joyplot_palette.png)
+![](figures/horizonplot_palette.png)
 
 
 ### Change the row order
@@ -41,8 +41,8 @@ Change the row order with the `row_order` keyword as with `seaborn.FacetGrid`:
 
 
 ```python
-hm.joyplot(data=df, x='x', row='g', xlabel_suffix='log2(UMI + 1)', palette='Paired', 
+hm.horizonplot(data=df, x='x', row='g', xlabel_suffix='log2(UMI + 1)', palette='Paired', 
            row_order=list('ABCJIHDEFG'))
 ```
 
-![](figures/joyplot_palette_row_order.png)
+![](figures/horizonplot_palette_row_order.png)
