@@ -3,22 +3,27 @@ import seaborn as sns
 
 
 def horizonplot(data, x, row, row_order=None, palette=None,
-            xlabel_suffix='log2(UMI + 1)', **kwargs):
-    with sns.set(style="white", rc={"axes.facecolor": (0, 0, 0, 0)}):
+            xlabel_suffix='log2(UMI + 1)', facet_kws=None, kdeplot_kws=None,
+                hline_kws=None):
+    facet_kws = {} if facet_kws is None else facet_kws
+    kdeplot_kws = {} if kdeplot_kws is None else kdeplot_kws
+    hline_kws = {} if hline_kws is None else hline_kws
+    with sns.axes_style("white", rc={"axes.facecolor": (0, 0, 0, 0)}):
         g = sns.FacetGrid(data, row=row, hue=row,
                           aspect=8, size=0.5, palette=palette,
-                          row_order=row_order, **kwargs)
+                          row_order=row_order, **facet_kws)
         # Draw the densities in a few steps
         g.map(sns.kdeplot, x, clip_on=False, shade=True, alpha=1, lw=1.5,
-              bw=.2)
-        g.map(sns.kdeplot, x, clip_on=False, color="w", lw=2, bw=.2)
-        g.map(plt.axhline, y=0, lw=2, clip_on=False)
+              bw=.2, **kdeplot_kws)
+        g.map(sns.kdeplot, x, clip_on=False, color="grey", lw=1, bw=.2,
+              **kdeplot_kws)
+        g.map(plt.axhline, y=0, lw=1, clip_on=False, **hline_kws)
 
         # Define a function to add n=## to show the number of cells per cluster
         def show_size(x, color, label=None):
             ax = plt.gca()
             n = len(x)
-            ax.text(1, 0.2, f'n={n}', color=color, ha='right', va='center',
+            ax.text(1, 0.2, f'n={n}', color=color, ha='left', va='center',
                     transform=ax.transAxes)
 
         g.map(show_size, x)
@@ -30,7 +35,7 @@ def horizonplot(data, x, row, row_order=None, palette=None,
                 return
             ax = plt.gca()
             ax.text(0, .2, label, fontweight="bold", color=color,
-                    ha="left", va="center", transform=ax.transAxes)
+                    ha="right", va="center", transform=ax.transAxes)
 
         g.map(label, x)
 
