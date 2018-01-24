@@ -23,7 +23,8 @@ def horizonplot(data, x, row, row_order=None, palette=None,
         def show_size(x, color, label=None):
             ax = plt.gca()
             n = len(x)
-            ax.text(1, 0.2, f'n={n}', color=color, ha='left', va='center',
+            ax.text(1, 0.2, 'n={n}'.format(n), color=color, ha='left',
+                    va='center',
                     transform=ax.transAxes)
 
         g.map(show_size, x)
@@ -39,7 +40,8 @@ def horizonplot(data, x, row, row_order=None, palette=None,
 
         g.map(label, x)
 
-        g.set_xlabels(f'{x} {xlabel_suffix}')
+        g.set_xlabels('{x} {xlabel_suffix}'.format(
+            x=x, xlabel_suffix=xlabel_suffix))
 
         # Set the subplots to overlap
         g.fig.subplots_adjust(hspace=-.25)
