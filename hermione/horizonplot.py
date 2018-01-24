@@ -23,7 +23,7 @@ def horizonplot(data, x, row, row_order=None, palette=None,
         def show_size(x, color, label=None):
             ax = plt.gca()
             n = len(x)
-            ax.text(1, 0.2, 'n={n}'.format(n), color=color, ha='left',
+            ax.text(1, 0.2, 'n={n}'.format(n=n), color=color, ha='left',
                     va='center',
                     transform=ax.transAxes)
 
