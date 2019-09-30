@@ -46,6 +46,7 @@ def horizonplot(data, x, row, row_order=None, palette=None,
     outline_kws = dict(color=outline_color)
     outline_kws.update(OUTLINE_KWS)
     outline_kws = _set_defaults(outline_kws, KDEPLOT_KWS)
+    import pdb; pdb.set_trace()
 
     # Pad xlabel suffix with spaces
     xlabel_suffix = ' ' + xlabel_suffix if xlabel_suffix is not None else ''
