@@ -2,6 +2,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+KDEPLOT_KWS = dict(clip_on=False, shade=True, alpha=1, lw=1.5, bw=.2)
+FACET_KWS = dict(aspect=8, height=0.5)
+HLINE_KWS = dict(y=0, lw=1, clip_on=False)
+
+
+def _set_defaults(given_kws, DEFAULT_KWS):
+    """Set defaults but ignore overlapping keywords"""
+    for key, value in DEFAULT_KWS.items():
+        if key not in given_kws:
+            given_kws[key] = value
+    return given_kws
+
 # Define a function to add n=## to show the number of cells per cluster
 def _show_size(x, color, label=None):
     ax = plt.gca()
@@ -25,9 +37,9 @@ def horizonplot(data, x, row, row_order=None, palette=None,
             xlabel_suffix=None, facet_kws=None, kdeplot_kws=None,
                 hline_kws=None, hue=None,
                 label_n_per_group=False):
-    facet_kws = dict(aspect=8, height=0.5) if facet_kws is None else facet_kws
-    kdeplot_kws = {} if kdeplot_kws is None else kdeplot_kws
-    hline_kws = {} if hline_kws is None else hline_kws
+    facet_kws = FACET_KWS if facet_kws is None else _set_defaults(facet_kws, FACET_KWS)
+    kdeplot_kws = KDEPLOT_KWS if kdeplot_kws is None else _set_defaults(kdeplot_kws, KDEPLOT_KWS)
+    hline_kws = hline_kws if hline_kws is None else _set_defaults(hline_kws, HLINE_KWS)
 
     # Pad xlabel suffix with spaces
     xlabel_suffix = ' ' + xlabel_suffix if xlabel_suffix is not None else ''
@@ -44,11 +56,12 @@ def horizonplot(data, x, row, row_order=None, palette=None,
                           palette=palette,
                           row_order=row_order, **facet_kws)
         # Draw the densities in a few steps
-        g.map(sns.kdeplot, x, clip_on=False, shade=True, alpha=1, lw=1.5,
-              bw=.2, **kdeplot_kws)
+        g.map(sns.kdeplot, x, **kdeplot_kws)
+        # Plot a fake line for spacing
         g.map(sns.kdeplot, x, clip_on=False, color="grey", lw=1, bw=.2,
               **kdeplot_kws)
-        g.map(plt.axhline, y=0, lw=1, clip_on=False, **hline_kws)
+        # Plot the 0-value on the y axis
+        g.map(plt.axhline, **hline_kws)
 
         if label_n_per_group:
             g.map(_show_size, x)
