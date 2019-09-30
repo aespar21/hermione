@@ -71,7 +71,8 @@ def horizonplot(data, x, row, row_order=None, palette=None,
             g.map(_label_yaxis, x)
         else:
             for (name, df), ax in zip(data.groupby(row), g.axes.flat):
-                _label_yaxis('x', 'black', name, ax)
+                label = '{key} = {value}'.format(key=row, value=name)
+                _label_yaxis('x', 'black', label, ax)
 
         g.set_xlabels('{x}{xlabel_suffix}'.format(
             x=x, xlabel_suffix=xlabel_suffix))
