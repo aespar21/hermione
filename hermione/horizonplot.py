@@ -59,8 +59,8 @@ def horizonplot(data, x, row, row_order=None, palette=None,
         # Draw the densities in a few steps
         g.map(sns.kdeplot, x, **kdeplot_kws)
         # Plot an outline color to separate the densities across rows
-        outline_kws = kdeplot_kws.update(OUTLINE_KWS)
-        g.map(sns.kdeplot, x, color=outline_color, **outline_kws)
+        kdeplot_kws.update(OUTLINE_KWS)
+        g.map(sns.kdeplot, x, color=outline_color, **kdeplot_kws)
         # Plot the 0-value on the y axis
         g.map(plt.axhline, **hline_kws)
 
