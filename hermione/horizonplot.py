@@ -85,4 +85,8 @@ def horizonplot(data, x, row, row_order=None, palette=None,
         g.set(yticks=[])
         g.despine(bottom=True, left=True)
 
+        # Add a legend if there is a non-None "hue" parameter
+        if not label_by_row:
+            g.add_legend()
+
         return g
