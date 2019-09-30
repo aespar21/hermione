@@ -39,7 +39,7 @@ def horizonplot(data, x, row, row_order=None, palette=None,
                 label_n_per_group=False):
     facet_kws = FACET_KWS if facet_kws is None else _set_defaults(facet_kws, FACET_KWS)
     kdeplot_kws = KDEPLOT_KWS if kdeplot_kws is None else _set_defaults(kdeplot_kws, KDEPLOT_KWS)
-    hline_kws = hline_kws if hline_kws is None else _set_defaults(hline_kws, HLINE_KWS)
+    hline_kws = HLINE_KWS if hline_kws is None else _set_defaults(hline_kws, HLINE_KWS)
 
     # Pad xlabel suffix with spaces
     xlabel_suffix = ' ' + xlabel_suffix if xlabel_suffix is not None else ''
