@@ -3,7 +3,7 @@ import seaborn as sns
 
 
 # Define a function to add n=## to show the number of cells per cluster
-def show_size(x, color, label=None):
+def _show_size(x, color, label=None):
     ax = plt.gca()
     n = len(x)
     ax.text(1, 0.2, 'n={n}'.format(n=n), color=color, ha='left',
@@ -13,7 +13,7 @@ def show_size(x, color, label=None):
 
 # Define and use a simple function to label the plot in axes
 # coordinates
-def label(x, color, label=None):
+def _label(x, color, label=None):
     if label is None:
         return
     ax = plt.gca()
@@ -43,11 +43,11 @@ def horizonplot(data, x, row, row_order=None, palette=None,
 
 
         if label_n_per_group:
-            g.map(show_size, x)
+            g.map(_show_size, x)
 
 
 
-        g.map(label, x)
+        g.map(_label, x)
 
         g.set_xlabels('{x} {xlabel_suffix}'.format(
             x=x, xlabel_suffix=xlabel_suffix))
