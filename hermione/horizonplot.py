@@ -35,7 +35,7 @@ def _label(x, color, label=None):
 
 def horizonplot(data, x, row, row_order=None, palette=None,
             xlabel_suffix=None, facet_kws=None, kdeplot_kws=None,
-                hline_kws=None, hue=None,
+                hline_kws=None, hue=None, outline_color='white',
                 label_n_per_group=False):
     facet_kws = FACET_KWS if facet_kws is None else _set_defaults(facet_kws, FACET_KWS)
     kdeplot_kws = KDEPLOT_KWS if kdeplot_kws is None else _set_defaults(kdeplot_kws, KDEPLOT_KWS)
@@ -57,8 +57,8 @@ def horizonplot(data, x, row, row_order=None, palette=None,
                           row_order=row_order, **facet_kws)
         # Draw the densities in a few steps
         g.map(sns.kdeplot, x, **kdeplot_kws)
-        # Plot a fake line for spacing
-        g.map(sns.kdeplot, x, **kdeplot_kws)
+        # Plot an outline color to separate the densities across rows
+        g.map(sns.kdeplot, x, color=outline_color, **kdeplot_kws)
         # Plot the 0-value on the y axis
         g.map(plt.axhline, **hline_kws)
 
