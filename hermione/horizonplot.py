@@ -25,10 +25,11 @@ def _show_size(x, color, label=None):
 
 # Define and use a simple function to label the plot in axes
 # coordinates
-def _label(x, color, label=None):
+def _label_yaxis(x, color, label=None, ax=None):
     if label is None:
         return
-    ax = plt.gca()
+    if ax is None:
+        ax = plt.gca()
     ax.text(0, .2, label, fontweight="bold", color=color,
             ha="right", va="center", transform=ax.transAxes)
 
@@ -66,7 +67,11 @@ def horizonplot(data, x, row, row_order=None, palette=None,
             g.map(_show_size, x)
 
         if label_by_row:
-            g.map(_label, x)
+            g.map(_label_yaxis, x)
+        else:
+            for (name, df), ax in zip(data.groupby(row), g.axes.flat):
+                _label_yaxis('x', 'black', name, ax)
+
         g.set_xlabels('{x}{xlabel_suffix}'.format(
             x=x, xlabel_suffix=xlabel_suffix))
 
