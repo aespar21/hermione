@@ -58,8 +58,7 @@ def horizonplot(data, x, row, row_order=None, palette=None,
         # Draw the densities in a few steps
         g.map(sns.kdeplot, x, **kdeplot_kws)
         # Plot a fake line for spacing
-        g.map(sns.kdeplot, x, clip_on=False, color="grey", lw=1, bw=.2,
-              **kdeplot_kws)
+        g.map(sns.kdeplot, x, **kdeplot_kws)
         # Plot the 0-value on the y axis
         g.map(plt.axhline, **hline_kws)
 
