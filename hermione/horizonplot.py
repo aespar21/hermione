@@ -24,7 +24,7 @@ def _label(x, color, label=None):
 def horizonplot(data, x, row, row_order=None, palette=None,
             xlabel_suffix='log2(UMI + 1)', facet_kws=None, kdeplot_kws=None,
                 hline_kws=None, hue=None, label_n_per_group=False):
-    facet_kws = dict(aspect=8, size=0.5) if facet_kws is None else facet_kws
+    facet_kws = dict(aspect=8, height=0.5) if facet_kws is None else facet_kws
     kdeplot_kws = {} if kdeplot_kws is None else kdeplot_kws
     hline_kws = {} if hline_kws is None else hline_kws
 
