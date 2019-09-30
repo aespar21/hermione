@@ -2,6 +2,25 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+# Define a function to add n=## to show the number of cells per cluster
+def show_size(x, color, label=None):
+    ax = plt.gca()
+    n = len(x)
+    ax.text(1, 0.2, 'n={n}'.format(n=n), color=color, ha='left',
+            va='center',
+            transform=ax.transAxes)
+
+
+# Define and use a simple function to label the plot in axes
+# coordinates
+def label(x, color, label=None):
+    if label is None:
+        return
+    ax = plt.gca()
+    ax.text(0, .2, label, fontweight="bold", color=color,
+            ha="right", va="center", transform=ax.transAxes)
+
+
 def horizonplot(data, x, row, row_order=None, palette=None,
             xlabel_suffix='log2(UMI + 1)', facet_kws=None, kdeplot_kws=None,
                 hline_kws=None, hue=None, label_n_per_group=False):
@@ -19,24 +38,11 @@ def horizonplot(data, x, row, row_order=None, palette=None,
               **kdeplot_kws)
         g.map(plt.axhline, y=0, lw=1, clip_on=False, **hline_kws)
 
-        # Define a function to add n=## to show the number of cells per cluster
-        def show_size(x, color, label=None):
-            ax = plt.gca()
-            n = len(x)
-            ax.text(1, 0.2, 'n={n}'.format(n=n), color=color, ha='left',
-                    va='center',
-                    transform=ax.transAxes)
 
-        g.map(show_size, x)
+        if label_n_per_group:
+            g.map(show_size, x)
 
-        # Define and use a simple function to label the plot in axes
-        # coordinates
-        def label(x, color, label=None):
-            if label is None:
-                return
-            ax = plt.gca()
-            ax.text(0, .2, label, fontweight="bold", color=color,
-                    ha="right", va="center", transform=ax.transAxes)
+
 
         g.map(label, x)
 
