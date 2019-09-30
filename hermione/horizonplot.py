@@ -5,7 +5,7 @@ import seaborn as sns
 KDEPLOT_KWS = dict(clip_on=False, shade=True, alpha=1, lw=1.5, bw=.2)
 FACET_KWS = dict(aspect=8, height=0.5)
 HLINE_KWS = dict(y=0, lw=1, clip_on=False)
-
+OUTLINE_KWS = dict(shade=False)
 
 def _set_defaults(given_kws, DEFAULT_KWS):
     """Set defaults but ignore overlapping keywords"""
@@ -59,7 +59,8 @@ def horizonplot(data, x, row, row_order=None, palette=None,
         # Draw the densities in a few steps
         g.map(sns.kdeplot, x, **kdeplot_kws)
         # Plot an outline color to separate the densities across rows
-        g.map(sns.kdeplot, x, color=outline_color, **kdeplot_kws)
+        outline_kws = _set_defaults(kdeplot_kws, OUTLINE_KWS)
+        g.map(sns.kdeplot, x, color=outline_color, **outline_kws)
         # Plot the 0-value on the y axis
         g.map(plt.axhline, **hline_kws)
 
