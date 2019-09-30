@@ -27,9 +27,12 @@ def horizonplot(data, x, row, row_order=None, palette=None,
     facet_kws = dict(aspect=8, size=0.5) if facet_kws is None else facet_kws
     kdeplot_kws = {} if kdeplot_kws is None else kdeplot_kws
     hline_kws = {} if hline_kws is None else hline_kws
+
+    # If the row is set, use the row as the hue color
+    hue = row if hue is None else hue
     with sns.axes_style("white", rc={"axes.facecolor": (0, 0, 0, 0)}):
-        g = sns.FacetGrid(data, row=row, hue=row,
-                          palette=palette, hue=hue,
+        g = sns.FacetGrid(data, row=row, hue=hue,
+                          palette=palette,
                           row_order=row_order, **facet_kws)
         # Draw the densities in a few steps
         g.map(sns.kdeplot, x, clip_on=False, shade=True, alpha=1, lw=1.5,
