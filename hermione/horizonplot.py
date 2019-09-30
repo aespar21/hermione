@@ -22,14 +22,23 @@ def _label(x, color, label=None):
 
 
 def horizonplot(data, x, row, row_order=None, palette=None,
-            xlabel_suffix='log2(UMI + 1)', facet_kws=None, kdeplot_kws=None,
-                hline_kws=None, hue=None, label_n_per_group=False):
+            xlabel_suffix=None, facet_kws=None, kdeplot_kws=None,
+                hline_kws=None, hue=None,
+                label_n_per_group=False):
     facet_kws = dict(aspect=8, height=0.5) if facet_kws is None else facet_kws
     kdeplot_kws = {} if kdeplot_kws is None else kdeplot_kws
     hline_kws = {} if hline_kws is None else hline_kws
 
+    # Pad xlabel suffix with spaces
+    xlabel_suffix = ' ' + xlabel_suffix if xlabel_suffix is not None else ''
+
     # If the row is set, use the row as the hue color
     hue = row if hue is None else hue
+
+    # Label the y-axis based on the row
+    label_by_row = True
+    if hue is not None:
+        label_by_row = False
     with sns.axes_style("white", rc={"axes.facecolor": (0, 0, 0, 0)}):
         g = sns.FacetGrid(data, row=row, hue=hue,
                           palette=palette,
@@ -41,15 +50,12 @@ def horizonplot(data, x, row, row_order=None, palette=None,
               **kdeplot_kws)
         g.map(plt.axhline, y=0, lw=1, clip_on=False, **hline_kws)
 
-
         if label_n_per_group:
             g.map(_show_size, x)
 
-
-
-        g.map(_label, x)
-
-        g.set_xlabels('{x} {xlabel_suffix}'.format(
+        if label_by_row:
+            g.map(_label, x)
+        g.set_xlabels('{x}{xlabel_suffix}'.format(
             x=x, xlabel_suffix=xlabel_suffix))
 
         # Set the subplots to overlap
